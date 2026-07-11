@@ -1,0 +1,386 @@
+[
+  {
+    "timestamp": "2026-07-11T22:11:19",
+    "stage": "01_fetch",
+    "index": "NIFTY50",
+    "description": "Raw daily OHLCV, 1234 rows, 2021-07-12 to 2026-07-10",
+    "metrics": {
+      "rows": 1234
+    },
+    "artifact": "nifty_volatility_project\\data\\raw\\NIFTY50_raw.csv"
+  },
+  {
+    "timestamp": "2026-07-11T22:11:20",
+    "stage": "01_fetch",
+    "index": "NIFTYBANK",
+    "description": "Raw daily OHLCV, 1233 rows, 2021-07-12 to 2026-07-10",
+    "metrics": {
+      "rows": 1233
+    },
+    "artifact": "nifty_volatility_project\\data\\raw\\NIFTYBANK_raw.csv"
+  },
+  {
+    "timestamp": "2026-07-11T22:11:20",
+    "stage": "01_fetch",
+    "index": "NIFTYIT",
+    "description": "Raw daily OHLCV, 1233 rows, 2021-07-12 to 2026-07-10",
+    "metrics": {
+      "rows": 1233
+    },
+    "artifact": "nifty_volatility_project\\data\\raw\\NIFTYIT_raw.csv"
+  },
+  {
+    "timestamp": "2026-07-11T22:11:20",
+    "stage": "01_fetch",
+    "index": "NIFTYAUTO",
+    "description": "Raw daily OHLCV, 1223 rows, 2021-07-12 to 2026-07-03",
+    "metrics": {
+      "rows": 1223
+    },
+    "artifact": "nifty_volatility_project\\data\\raw\\NIFTYAUTO_raw.csv"
+  },
+  {
+    "timestamp": "2026-07-11T22:11:20",
+    "stage": "02_clean",
+    "index": "NIFTY50",
+    "description": "Cleaned series with log returns, 1233 rows, 0 missing values remaining",
+    "metrics": {
+      "rows": 1233,
+      "missing_values": 0
+    },
+    "artifact": "nifty_volatility_project\\data\\clean\\NIFTY50_clean.csv"
+  },
+  {
+    "timestamp": "2026-07-11T22:11:20",
+    "stage": "02_clean",
+    "index": "NIFTYBANK",
+    "description": "Cleaned series with log returns, 1232 rows, 0 missing values remaining",
+    "metrics": {
+      "rows": 1232,
+      "missing_values": 0
+    },
+    "artifact": "nifty_volatility_project\\data\\clean\\NIFTYBANK_clean.csv"
+  },
+  {
+    "timestamp": "2026-07-11T22:11:20",
+    "stage": "02_clean",
+    "index": "NIFTYIT",
+    "description": "Cleaned series with log returns, 1232 rows, 0 missing values remaining",
+    "metrics": {
+      "rows": 1232,
+      "missing_values": 0
+    },
+    "artifact": "nifty_volatility_project\\data\\clean\\NIFTYIT_clean.csv"
+  },
+  {
+    "timestamp": "2026-07-11T22:11:20",
+    "stage": "02_clean",
+    "index": "NIFTYAUTO",
+    "description": "Cleaned series with log returns, 1222 rows, 0 missing values remaining",
+    "metrics": {
+      "rows": 1222,
+      "missing_values": 0
+    },
+    "artifact": "nifty_volatility_project\\data\\clean\\NIFTYAUTO_clean.csv"
+  },
+  {
+    "timestamp": "2026-07-11T22:11:20",
+    "stage": "03_eda",
+    "index": "ALL",
+    "description": "Rolling 21-day annualized volatility across all 4 indices - look for clustering (calm vs turbulent periods), not a flat line",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\01_rolling_volatility.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:11:21",
+    "stage": "03_eda",
+    "index": "ALL",
+    "description": "Return distributions - fat tails (kurtosis > 0) are the justification for GARCH",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\02_return_distributions.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:11:21",
+    "stage": "03_eda",
+    "index": "NIFTY50",
+    "description": "Skew and excess kurtosis of daily log returns",
+    "metrics": {
+      "skew": -0.471,
+      "excess_kurtosis": 3.975
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:11:21",
+    "stage": "03_eda",
+    "index": "NIFTYBANK",
+    "description": "Skew and excess kurtosis of daily log returns",
+    "metrics": {
+      "skew": -0.558,
+      "excess_kurtosis": 5.521
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:11:21",
+    "stage": "03_eda",
+    "index": "NIFTYIT",
+    "description": "Skew and excess kurtosis of daily log returns",
+    "metrics": {
+      "skew": -0.24,
+      "excess_kurtosis": 2.202
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:11:21",
+    "stage": "03_eda",
+    "index": "NIFTYAUTO",
+    "description": "Skew and excess kurtosis of daily log returns",
+    "metrics": {
+      "skew": -0.181,
+      "excess_kurtosis": 2.42
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:11:21",
+    "stage": "03_eda",
+    "index": "ALL",
+    "description": "Cross-index return correlation - confirms the 4 indices add genuine variety, not near-duplicate series",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\03_correlation_matrix.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:12:22",
+    "stage": "04_arima",
+    "index": "NIFTY50",
+    "description": "ARIMA(1,0,1) walk-forward forecast, RMSE=0.00832, MAE=0.00615",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\04_arima_NIFTY50.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:12:22",
+    "stage": "04_arima",
+    "index": "NIFTY50",
+    "description": "ARIMA(1,0,1) walk-forward return forecast",
+    "metrics": {
+      "rmse": 0.00832,
+      "mae": 0.006151
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:13:09",
+    "stage": "04_arima",
+    "index": "NIFTYBANK",
+    "description": "ARIMA(1,0,1) walk-forward forecast, RMSE=0.01041, MAE=0.00705",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\04_arima_NIFTYBANK.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:13:09",
+    "stage": "04_arima",
+    "index": "NIFTYBANK",
+    "description": "ARIMA(1,0,1) walk-forward return forecast",
+    "metrics": {
+      "rmse": 0.010411,
+      "mae": 0.007052
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:14:06",
+    "stage": "04_arima",
+    "index": "NIFTYIT",
+    "description": "ARIMA(1,0,1) walk-forward forecast, RMSE=0.01558, MAE=0.01118",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\04_arima_NIFTYIT.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:14:06",
+    "stage": "04_arima",
+    "index": "NIFTYIT",
+    "description": "ARIMA(1,0,1) walk-forward return forecast",
+    "metrics": {
+      "rmse": 0.015576,
+      "mae": 0.011183
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:15:08",
+    "stage": "04_arima",
+    "index": "NIFTYAUTO",
+    "description": "ARIMA(1,0,1) walk-forward forecast, RMSE=0.01328, MAE=0.00958",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\04_arima_NIFTYAUTO.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:15:08",
+    "stage": "04_arima",
+    "index": "NIFTYAUTO",
+    "description": "ARIMA(1,0,1) walk-forward return forecast",
+    "metrics": {
+      "rmse": 0.013279,
+      "mae": 0.00958
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:15:10",
+    "stage": "05_garch",
+    "index": "NIFTY50",
+    "description": "GARCH(1,1) volatility forecast vs realized, RMSE=0.45636",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\05_garch_NIFTY50.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:15:10",
+    "stage": "05_garch",
+    "index": "NIFTY50",
+    "description": "GARCH(1,1) volatility forecast vs 5-day realized volatility",
+    "metrics": {
+      "rmse_vs_realized_vol": 0.45636
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:15:11",
+    "stage": "05_garch",
+    "index": "NIFTYBANK",
+    "description": "GARCH(1,1) volatility forecast vs realized, RMSE=0.65159",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\05_garch_NIFTYBANK.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:15:11",
+    "stage": "05_garch",
+    "index": "NIFTYBANK",
+    "description": "GARCH(1,1) volatility forecast vs 5-day realized volatility",
+    "metrics": {
+      "rmse_vs_realized_vol": 0.651588
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:15:12",
+    "stage": "05_garch",
+    "index": "NIFTYIT",
+    "description": "GARCH(1,1) volatility forecast vs realized, RMSE=0.72365",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\05_garch_NIFTYIT.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:15:12",
+    "stage": "05_garch",
+    "index": "NIFTYIT",
+    "description": "GARCH(1,1) volatility forecast vs 5-day realized volatility",
+    "metrics": {
+      "rmse_vs_realized_vol": 0.723648
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:15:13",
+    "stage": "05_garch",
+    "index": "NIFTYAUTO",
+    "description": "GARCH(1,1) volatility forecast vs realized, RMSE=0.66739",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\05_garch_NIFTYAUTO.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:15:13",
+    "stage": "05_garch",
+    "index": "NIFTYAUTO",
+    "description": "GARCH(1,1) volatility forecast vs 5-day realized volatility",
+    "metrics": {
+      "rmse_vs_realized_vol": 0.667392
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:15:26",
+    "stage": "06_ml_benchmark",
+    "index": "NIFTY50",
+    "description": "Random Forest (5 lags) forecast, RMSE=0.00844, MAE=0.00627",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\06_rf_NIFTY50.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:15:26",
+    "stage": "06_ml_benchmark",
+    "index": "NIFTY50",
+    "description": "Random Forest (5 lagged returns) forecast",
+    "metrics": {
+      "rmse": 0.008436,
+      "mae": 0.006268
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:15:29",
+    "stage": "06_ml_benchmark",
+    "index": "NIFTYBANK",
+    "description": "Random Forest (5 lags) forecast, RMSE=0.01039, MAE=0.00712",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\06_rf_NIFTYBANK.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:15:29",
+    "stage": "06_ml_benchmark",
+    "index": "NIFTYBANK",
+    "description": "Random Forest (5 lagged returns) forecast",
+    "metrics": {
+      "rmse": 0.01039,
+      "mae": 0.007119
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:15:33",
+    "stage": "06_ml_benchmark",
+    "index": "NIFTYIT",
+    "description": "Random Forest (5 lags) forecast, RMSE=0.01562, MAE=0.01136",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\06_rf_NIFTYIT.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:15:33",
+    "stage": "06_ml_benchmark",
+    "index": "NIFTYIT",
+    "description": "Random Forest (5 lagged returns) forecast",
+    "metrics": {
+      "rmse": 0.015623,
+      "mae": 0.011359
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:15:37",
+    "stage": "06_ml_benchmark",
+    "index": "NIFTYAUTO",
+    "description": "Random Forest (5 lags) forecast, RMSE=0.01328, MAE=0.00953",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\06_rf_NIFTYAUTO.png"
+  },
+  {
+    "timestamp": "2026-07-11T22:15:37",
+    "stage": "06_ml_benchmark",
+    "index": "NIFTYAUTO",
+    "description": "Random Forest (5 lagged returns) forecast",
+    "metrics": {
+      "rmse": 0.013277,
+      "mae": 0.009527
+    },
+    "artifact": null
+  },
+  {
+    "timestamp": "2026-07-11T22:15:39",
+    "stage": "07_comparison",
+    "index": "ALL",
+    "description": "Head-to-head RMSE comparison, ARIMA vs Random Forest, across all 4 indices",
+    "metrics": {},
+    "artifact": "nifty_volatility_project\\figures\\07_model_comparison.png"
+  }
+]
