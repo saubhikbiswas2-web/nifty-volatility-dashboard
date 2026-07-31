@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSE Risk Intelligence Console</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+  :root{ --bg:#0B0F14; --panel:#121822; --panel-2:#182130; --line:rgba(140,170,210,0.14);
+    --text:#EAF0F7; --dim:#8FA3B8; --calm:#33D690; --normal:#F5A623; --stressed:#FF4D4D; --info:#59B8FF; --mono:'IBM Plex Mono',monospace; }
+  *{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.65;}
+  a{color:var(--info);}
+  header{padding:32px 40px 22px;border-bottom:1px solid var(--line);}
+  header .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);}
+  header h1{font-family:'Manrope',sans-serif;font-weight:800;font-size:30px;margin:6px 0 4px;}
+  header .meta{font-family:var(--mono);font-size:12px;color:var(--dim);}
+  main{padding:32px 40px 90px;max-width:1180px;margin:0 auto;}
+  section{margin-bottom:46px;}
+  h2{font-family:'Manrope',sans-serif;font-size:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:16px;}
+  h3{font-family:'Manrope',sans-serif;font-size:15.5px;margin:18px 0 8px;}
+  p{color:var(--dim);margin:0 0 14px;font-size:14.5px;}
+  p b, li b{color:var(--text);}
+  .lede{font-size:16px;color:var(--text);}
+  .story-box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px 28px;margin-bottom:10px;}
+  .board{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:10px;}
+  @media (max-width:900px){.board{grid-template-columns:1fr 1fr;}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;}
+  .card h4{font-family:'Manrope',sans-serif;font-size:16px;margin:0 0 10px;}
+  .badge{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.05em;padding:4px 10px;border-radius:20px;text-transform:uppercase;margin-bottom:10px;}
+  .badge.Calm{background:rgba(51,214,144,0.15);color:var(--calm);border:1px solid var(--calm);}
+  .badge.Normal{background:rgba(245,166,35,0.15);color:var(--normal);border:1px solid var(--normal);}
+  .badge.Stressed{background:rgba(255,77,77,0.15);color:var(--stressed);border:1px solid var(--stressed);}
+  .vol{font-family:var(--mono);font-size:24px;font-weight:600;margin-bottom:4px;}
+  .brief{font-size:12.5px;color:var(--dim);}
+  canvas.spark{max-height:90px;margin:8px 0;}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px;}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);color:var(--dim);}
+  th{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;color:var(--text);}
+  td b{color:var(--text);}
+  .sig{color:var(--calm);font-weight:600;} .nosig{color:var(--dim);}
+  .pass{color:var(--calm);} .fail{color:var(--stressed);}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0;}
+  @media (max-width:760px){.stat-row{grid-template-columns:1fr;}}
+  .stat{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .stat .n{font-family:var(--mono);font-size:22px;color:var(--info);font-weight:600;}
+  .stat .l{font-family:var(--mono);font-size:10.5px;color:var(--dim);text-transform:uppercase;margin-top:4px;}
+  .acc-item{border:1px solid var(--line);border-radius:8px;margin-bottom:8px;overflow:hidden;background:var(--panel);}
+  .acc-head{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;cursor:pointer;font-family:var(--mono);font-size:13.5px;color:var(--text);}
+  .acc-head:hover{background:rgba(255,255,255,0.03);}
+  .acc-head .plus{color:var(--info);font-size:16px;transition:transform .2s;}
+  .acc-item.open .plus{transform:rotate(45deg);}
+  .acc-body{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 16px;font-size:13.5px;}
+  .acc-item.open .acc-body{padding-bottom:14px;}
+  .honest{border-left:3px solid var(--normal);background:rgba(245,166,35,0.06);padding:10px 14px;border-radius:0 8px 8px 0;font-size:13.5px;margin:10px 0;}
+  footer{padding:24px 40px;font-family:var(--mono);font-size:11px;color:var(--dim);border-top:1px solid var(--line);}
+  .regen{background:var(--panel-2);border:1px dashed var(--line);border-radius:10px;padding:14px 18px;font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:10px;}
+</style></head>
+<body>
+<header>
+  <div class="eyebrow">NSE Index Products &middot; Reusable Risk Monitoring Tool</div>
+  <h1>NSE Risk Intelligence Console</h1>
+  <div class="meta" id="metaLine"></div>
+</header>
+<main>
+
+  <section id="storySection">
+    <div class="story-box">
+      <p class="lede" id="storyLede"></p>
+      <div class="stat-row" id="storyStats"></div>
+      <p id="storyBody"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Live Status — Today</h2>
+    <div class="board" id="board"></div>
+  </section>
+
+  <section>
+    <h2>Can the Past Predict Tomorrow? (Return Forecasting)</h2>
+    <p>Two very different approaches — a classical statistical model (ARIMA) and a machine learning model (Random Forest) — were tested against each other on identical data, forecasting one day ahead at a time.</p>
+    <table id="forecastTable"></table>
+    <p id="forecastNote" style="margin-top:10px;"></p>
+  </section>
+
+  <section>
+    <h2>When "Safe" Isn't Safe (Value-at-Risk Backtesting)</h2>
+    <p>Three ways of estimating a 1-day, 95%-confidence worst-case-loss threshold were tested against what actually happened, using the standard Kupiec backtest.</p>
+    <table id="varTable"></table>
+  </section>
+
+  <section>
+    <h2>Does the Wider World Help? (Macro Enrichment)</h2>
+    <p>India VIX, USD/INR, WTI crude, and the S&amp;P 500 were tested for genuine predictive value beyond each index's own history — not assumed, tested.</p>
+    <h3>Same-day correlation with index returns</h3>
+    <table id="corrTable"></table>
+    <h3>Granger causality — does yesterday's macro move help predict today's index?</h3>
+    <table id="grangerTable"></table>
+    <h3>Held-out test: does adding macro variables improve next-day regime prediction?</h3>
+    <table id="modelTable"></table>
+  </section>
+
+  <section>
+    <h2>How This Works</h2>
+    <div id="methodology"></div>
+  </section>
+
+  <section>
+    <div class="honest">
+      <b>Honest scope:</b> this is a backtested analytical tool built on historical data, not a live-deployed trading or margining system, and it makes no claim about any specific existing NSE methodology. It is a reproducible input a risk function could use alongside others.
+    </div>
+    <div class="regen">To refresh this console with today's data, re-run <b>nse_risk_console.py</b> — this exact file will regenerate with updated numbers, charts, and status.</div>
+  </section>
+
+</main>
+<footer>NSE Risk Intelligence Console &middot; ARIMA/GARCH/Random Forest forecasting + Kupiec-backtested VaR + macro/Granger enrichment, in one reusable file.</footer>
+<script>
+const DATA = __DATA_JSON__;
+const INDEXES = Object.keys(DATA.snapshot);
+
+document.getElementById('metaLine').textContent = `Generated ${DATA.generated_at} · Data through ${DATA.last_date}`;
+
+// ---- Story section ----
+const stressedCount = INDEXES.filter(i => DATA.snapshot[i].regime === 'Stressed').length;
+document.getElementById('storyLede').textContent =
+  `As of ${DATA.last_date}, ${stressedCount} of ${INDEXES.length} tracked indices are in a Stressed volatility regime.`;
+
+const garchPassCount = INDEXES.filter(i => DATA.var[i]?.garch_based?.adequate).length;
+const histPassCount = INDEXES.filter(i => DATA.var[i]?.historical_simulation?.adequate).length;
+const paramPassCount = INDEXES.filter(i => DATA.var[i]?.parametric_normal?.adequate).length;
+
+document.getElementById('storyStats').innerHTML = `
+  <div class="stat"><div class="n">${garchPassCount}/${INDEXES.length}</div><div class="l">GARCH-based VaR passes backtest</div></div>
+  <div class="stat"><div class="n">${histPassCount}/${INDEXES.length}</div><div class="l">Historical-sim VaR passes backtest</div></div>
+  <div class="stat"><div class="n">${paramPassCount}/${INDEXES.length}</div><div class="l">Parametric VaR passes backtest</div></div>
+`;
+document.getElementById('storyBody').innerHTML =
+  `Every time this console is regenerated, it re-runs the full comparison: does a classical model or a machine learning model forecast returns better; does a volatility-aware risk estimate actually hold up under a formal statistical backtest; and does looking beyond an index's own history — at India VIX, currency, oil, and global market moves — add real predictive value. The numbers above and throughout this page are today's answers, not fixed conclusions from one historical run.`;
+
+// ---- Live status board ----
+const board = document.getElementById('board');
+INDEXES.forEach(idx => {
+  const s = DATA.snapshot[idx];
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `<h4>${idx}</h4><span class="badge ${s.regime}">${s.regime}</span>
+    <div class="vol">${s.ann_vol}%</div>
+    <canvas class="spark" id="chart_${idx}"></canvas>
+    <div class="brief">${s.brief}</div>`;
+  board.appendChild(card);
+});
+Object.entries(DATA.charts).forEach(([idx, c]) => {
+  const ctx = document.getElementById(`chart_${idx}`);
+  if (!ctx || typeof Chart === 'undefined') return;
+  new Chart(ctx, {
+    type: 'line',
+    data: { labels: c.dates, datasets: [{ data: c.vol, borderColor: '#59B8FF', borderWidth: 1.3, pointRadius: 0, tension: 0.15 }] },
+    options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
+  });
+});
+
+// ---- Forecast table ----
+let fHtml = '<tr><th>Index</th><th>ARIMA RMSE</th><th>ARIMA MAE</th><th>Random Forest RMSE</th><th>Random Forest MAE</th></tr>';
+INDEXES.forEach(idx => {
+  const r = DATA.forecast[idx];
+  fHtml += `<tr><td><b>${idx}</b></td><td>${r.arima_rmse}</td><td>${r.arima_mae}</td><td>${r.rf_rmse}</td><td>${r.rf_mae}</td></tr>`;
+});
+document.getElementById('forecastTable').innerHTML = fHtml;
+const avgDiff = INDEXES.reduce((s, idx) => s + Math.abs(DATA.forecast[idx].arima_rmse - DATA.forecast[idx].rf_rmse), 0) / INDEXES.length;
+document.getElementById('forecastNote').textContent =
+  `Average RMSE gap between the two approaches: ${avgDiff.toFixed(5)} — ${avgDiff < 0.001 ? 'small enough that neither model has a meaningful edge on this data.' : 'a difference worth investigating further.'}`;
+
+// ---- VaR table ----
+let vHtml = '<tr><th>Index</th><th>Method</th><th>Breach Rate (target 5%)</th><th>Kupiec Verdict</th></tr>';
+const methodLabels = { historical_simulation: 'Historical Simulation', parametric_normal: 'Parametric Normal', garch_based: 'GARCH-Based' };
+INDEXES.forEach(idx => {
+  Object.entries(DATA.var[idx] || {}).forEach(([method, r]) => {
+    vHtml += `<tr><td><b>${idx}</b></td><td>${methodLabels[method] || method}</td><td>${r.breach_rate_pct}%</td><td class="${r.adequate ? 'pass' : 'fail'}">${r.adequate ? 'Pass' : 'Fail'} (p=${r.kupiec_pvalue})</td></tr>`;
+  });
+});
+document.getElementById('varTable').innerHTML = vHtml;
+
+// ---- Correlation table ----
+const macroNames = Object.keys(Object.values(DATA.correlations)[0] || {});
+let cHtml = '<tr><th>Index</th>' + macroNames.map(m => `<th>${m}</th>`).join('') + '</tr>';
+INDEXES.forEach(idx => {
+  cHtml += `<tr><td><b>${idx}</b></td>` + macroNames.map(m => `<td>${DATA.correlations[idx][m] ?? 'n/a'}</td>`).join('') + '</tr>';
+});
+document.getElementById('corrTable').innerHTML = cHtml;
+
+// ---- Granger table ----
+let gHtml = '<tr><th>Index</th><th>Macro Variable</th><th>p-value</th><th>Significant?</th></tr>';
+INDEXES.forEach(idx => {
+  Object.entries(DATA.granger[idx] || {}).forEach(([macro, r]) => {
+    if (r.error) return;
+    gHtml += `<tr><td><b>${idx}</b></td><td>${macro}</td><td>${r.p_value}</td><td class="${r.significant ? 'sig' : 'nosig'}">${r.significant ? 'Yes' : 'No'}</td></tr>`;
+  });
+});
+document.getElementById('grangerTable').innerHTML = gHtml;
+
+// ---- Model comparison table ----
+let mHtml = '<tr><th>Index</th><th>Baseline (own volatility only)</th><th>Enriched (+ macro variables)</th></tr>';
+INDEXES.forEach(idx => {
+  const r = DATA.model_comparison[idx];
+  const b = r.baseline || {}, e = r.enriched || {};
+  mHtml += `<tr><td><b>${idx}</b></td><td>Accuracy ${b.accuracy ?? 'n/a'}, AUC ${b.auc ?? 'n/a'}</td><td>Accuracy ${e.accuracy ?? 'n/a'}, AUC ${e.auc ?? 'n/a'}</td></tr>`;
+});
+document.getElementById('modelTable').innerHTML = mHtml;
+
+// ---- Methodology accordion ----
+const methodology = [
+  { t: "Return forecasting (ARIMA vs Random Forest)", b: "ARIMA(1,0,1) models each index's own return history with one autoregressive and one moving-average term. Random Forest (300 trees, max depth 4) uses the previous 5 days' returns as features. Both are evaluated walk-forward: one step ahead at a time, refitting after each day." },
+  { t: "Volatility forecasting (GARCH)", b: "GARCH(1,1) models time-varying volatility directly, using the pattern that turbulent and calm periods cluster rather than resetting randomly each day. Its conditional volatility forecast also drives the Calm/Normal/Stressed regime classification shown on each card." },
+  { t: "Value-at-Risk and the Kupiec backtest", b: "Three VaR estimates (historical simulation, parametric-normal, and GARCH-based) are computed for every day using only information available before that day, then checked against what actually happened using the Kupiec Proportion-of-Failures test — a formal statistical test of whether the breach rate matches the target rate." },
+  { t: "Macro enrichment and Granger causality", b: "India VIX, USD/INR, WTI crude, and the S&P 500 are tested for genuine predictive value using Granger causality (does a variable's past significantly help predict the index, beyond the index's own past) and a held-out comparison of a baseline vs. macro-enriched regime-prediction model." },
+];
+const mEl = document.getElementById('methodology');
+methodology.forEach((item, i) => {
+  const div = document.createElement('div');
+  div.className = 'acc-item';
+  div.innerHTML = `<div class="acc-head" data-i="${i}"><span>${item.t}</span><span class="plus">+</span></div><div class="acc-body"><p>${item.b}</p></div>`;
+  mEl.appendChild(div);
+});
+mEl.addEventListener('click', (e) => {
+  const head = e.target.closest('.acc-head');
+  if (!head) return;
+  const item = head.parentElement;
+  const body = item.querySelector('.acc-body');
+  const open = item.classList.contains('open');
+  if (open) { body.style.maxHeight = null; item.classList.remove('open'); }
+  else { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 40 + 'px'; }
+});
+</script>
+</body></html>

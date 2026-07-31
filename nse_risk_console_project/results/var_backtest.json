@@ -1,0 +1,178 @@
+{
+  "NIFTY50": {
+    "historical_simulation": {
+      "breach_rate_pct": 7.69,
+      "kupiec_pvalue": 0.071,
+      "adequate": true,
+      "breach_rate_99_pct": 2.83,
+      "kupiec_pvalue_99": 0.0179,
+      "adequate_99": false,
+      "basel_zone": "Yellow",
+      "exceptions_in_last_250": 7,
+      "todays_var_95_pct": 1.408,
+      "todays_var_99_pct": 2.152,
+      "todays_var_95_inr": 1408248,
+      "todays_var_99_inr": 2151657
+    },
+    "parametric_normal": {
+      "breach_rate_pct": 7.29,
+      "kupiec_pvalue": 0.1214,
+      "adequate": true,
+      "breach_rate_99_pct": 2.83,
+      "kupiec_pvalue_99": 0.0179,
+      "adequate_99": false,
+      "basel_zone": "Yellow",
+      "exceptions_in_last_250": 7,
+      "todays_var_95_pct": 1.383,
+      "todays_var_99_pct": 1.951,
+      "todays_var_95_inr": 1383498,
+      "todays_var_99_inr": 1950796
+    },
+    "garch_based": {
+      "breach_rate_pct": 5.67,
+      "kupiec_pvalue": 0.6369,
+      "adequate": true,
+      "breach_rate_99_pct": 1.21,
+      "kupiec_pvalue_99": 0.743,
+      "adequate_99": true,
+      "basel_zone": "Green",
+      "exceptions_in_last_250": 3,
+      "todays_var_95_pct": 1.227,
+      "todays_var_99_pct": 1.754,
+      "todays_var_95_inr": 1227231,
+      "todays_var_99_inr": 1754088
+    }
+  },
+  "NIFTYBANK": {
+    "historical_simulation": {
+      "breach_rate_pct": 8.5,
+      "kupiec_pvalue": 0.0211,
+      "adequate": false,
+      "breach_rate_99_pct": 3.64,
+      "kupiec_pvalue_99": 0.0013,
+      "adequate_99": false,
+      "basel_zone": "Yellow",
+      "exceptions_in_last_250": 9,
+      "todays_var_95_pct": 1.592,
+      "todays_var_99_pct": 3.277,
+      "todays_var_95_inr": 1592009,
+      "todays_var_99_inr": 3277098
+    },
+    "parametric_normal": {
+      "breach_rate_pct": 5.26,
+      "kupiec_pvalue": 0.8507,
+      "adequate": true,
+      "breach_rate_99_pct": 4.45,
+      "kupiec_pvalue_99": 0.0001,
+      "adequate_99": false,
+      "basel_zone": "Red",
+      "exceptions_in_last_250": 11,
+      "todays_var_95_pct": 1.726,
+      "todays_var_99_pct": 2.441,
+      "todays_var_95_inr": 1725516,
+      "todays_var_99_inr": 2441156
+    },
+    "garch_based": {
+      "breach_rate_pct": 4.86,
+      "kupiec_pvalue": 0.9182,
+      "adequate": true,
+      "breach_rate_99_pct": 1.21,
+      "kupiec_pvalue_99": 0.743,
+      "adequate_99": true,
+      "basel_zone": "Green",
+      "exceptions_in_last_250": 3,
+      "todays_var_95_pct": 1.494,
+      "todays_var_99_pct": 2.133,
+      "todays_var_95_inr": 1494246,
+      "todays_var_99_inr": 2133115
+    }
+  },
+  "NIFTYIT": {
+    "historical_simulation": {
+      "breach_rate_pct": 5.67,
+      "kupiec_pvalue": 0.6369,
+      "adequate": true,
+      "breach_rate_99_pct": 2.02,
+      "kupiec_pvalue_99": 0.1554,
+      "adequate_99": true,
+      "basel_zone": "Yellow",
+      "exceptions_in_last_250": 5,
+      "todays_var_95_pct": 2.246,
+      "todays_var_99_pct": 5.556,
+      "todays_var_95_inr": 2245660,
+      "todays_var_99_inr": 5555736
+    },
+    "parametric_normal": {
+      "breach_rate_pct": 4.86,
+      "kupiec_pvalue": 0.9182,
+      "adequate": true,
+      "breach_rate_99_pct": 3.64,
+      "kupiec_pvalue_99": 0.0013,
+      "adequate_99": false,
+      "basel_zone": "Yellow",
+      "exceptions_in_last_250": 9,
+      "todays_var_95_pct": 2.679,
+      "todays_var_99_pct": 3.761,
+      "todays_var_95_inr": 2679391,
+      "todays_var_99_inr": 3760601
+    },
+    "garch_based": {
+      "breach_rate_pct": 4.86,
+      "kupiec_pvalue": 0.9182,
+      "adequate": true,
+      "breach_rate_99_pct": 3.24,
+      "kupiec_pvalue_99": 0.005,
+      "adequate_99": false,
+      "basel_zone": "Yellow",
+      "exceptions_in_last_250": 8,
+      "todays_var_95_pct": 2.847,
+      "todays_var_99_pct": 4.032,
+      "todays_var_95_inr": 2846867,
+      "todays_var_99_inr": 4031659
+    }
+  },
+  "NIFTYAUTO": {
+    "historical_simulation": {
+      "breach_rate_pct": 6.48,
+      "kupiec_pvalue": 0.3071,
+      "adequate": true,
+      "breach_rate_99_pct": 2.02,
+      "kupiec_pvalue_99": 0.1554,
+      "adequate_99": true,
+      "basel_zone": "Yellow",
+      "exceptions_in_last_250": 5,
+      "todays_var_95_pct": 2.241,
+      "todays_var_99_pct": 3.459,
+      "todays_var_95_inr": 2240916,
+      "todays_var_99_inr": 3458990
+    },
+    "parametric_normal": {
+      "breach_rate_pct": 7.29,
+      "kupiec_pvalue": 0.1214,
+      "adequate": true,
+      "breach_rate_99_pct": 3.64,
+      "kupiec_pvalue_99": 0.0013,
+      "adequate_99": false,
+      "basel_zone": "Yellow",
+      "exceptions_in_last_250": 9,
+      "todays_var_95_pct": 2.117,
+      "todays_var_99_pct": 3.014,
+      "todays_var_95_inr": 2116720,
+      "todays_var_99_inr": 3013977
+    },
+    "garch_based": {
+      "breach_rate_pct": 5.67,
+      "kupiec_pvalue": 0.6369,
+      "adequate": true,
+      "breach_rate_99_pct": 0.81,
+      "kupiec_pvalue_99": 0.7559,
+      "adequate_99": true,
+      "basel_zone": "Green",
+      "exceptions_in_last_250": 2,
+      "todays_var_95_pct": 1.322,
+      "todays_var_99_pct": 1.906,
+      "todays_var_95_inr": 1322392,
+      "todays_var_99_inr": 1905815
+    }
+  }
+}

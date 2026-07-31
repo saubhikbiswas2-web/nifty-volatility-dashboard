@@ -1,0 +1,26 @@
+{
+  "NIFTY50": {
+    "worst_days_checked": 10,
+    "worst_days_preceded_by_stressed_flag": 9,
+    "pct_with_advance_warning": 90.0,
+    "avg_lead_days": 1.0
+  },
+  "NIFTYBANK": {
+    "worst_days_checked": 10,
+    "worst_days_preceded_by_stressed_flag": 6,
+    "pct_with_advance_warning": 60.0,
+    "avg_lead_days": 1.0
+  },
+  "NIFTYIT": {
+    "worst_days_checked": 10,
+    "worst_days_preceded_by_stressed_flag": 8,
+    "pct_with_advance_warning": 80.0,
+    "avg_lead_days": 1.0
+  },
+  "NIFTYAUTO": {
+    "worst_days_checked": 10,
+    "worst_days_preceded_by_stressed_flag": 8,
+    "pct_with_advance_warning": 80.0,
+    "avg_lead_days": 1.0
+  }
+}

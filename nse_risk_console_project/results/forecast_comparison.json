@@ -1,0 +1,26 @@
+{
+  "NIFTY50": {
+    "arima_rmse": 0.00835,
+    "arima_mae": 0.00615,
+    "rf_rmse": 0.00842,
+    "rf_mae": 0.00624
+  },
+  "NIFTYBANK": {
+    "arima_rmse": 0.01051,
+    "arima_mae": 0.00713,
+    "rf_rmse": 0.01051,
+    "rf_mae": 0.00721
+  },
+  "NIFTYIT": {
+    "arima_rmse": 0.01589,
+    "arima_mae": 0.01143,
+    "rf_rmse": 0.01597,
+    "rf_mae": 0.01166
+  },
+  "NIFTYAUTO": {
+    "arima_rmse": 0.01326,
+    "arima_mae": 0.00947,
+    "rf_rmse": 0.01321,
+    "rf_mae": 0.00936
+  }
+}
